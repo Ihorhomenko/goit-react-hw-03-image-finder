@@ -3,6 +3,7 @@ import Searchbar from './searchbar/searchbar';
 import ImageGallery from './imageGallery/imageGallery';
 import Button from './button/button';
 import { BallTriangle } from  'react-loader-spinner'
+import Modal from './modal/modal';
 import '../index.css'
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
     searchValue: '',
     gallery: [],
     loader: false,
+    largeUrl: "",
     page: 1
   }
 
@@ -31,6 +33,10 @@ class App extends Component {
     fetch(`https://pixabay.com/api/?q=${searchValue}&page=${page}&key=${this.state.key}&image_type=photo&orientation=horizontal&per_page=12`).then(res => res.json()).then(data => this.setState(prevState => ({gallery: [...prevState.gallery, ...data.hits]})))
   }
 
+  handleModalClick = (largeUrl) => {
+    this.setState({largeUrl})
+  }
+
   render () {
     return (
       <div>
@@ -40,7 +46,8 @@ class App extends Component {
                                 color = '#3f51b5'
                                 wrapperClass = {'loader'}
                               />}
-        <ImageGallery gallery={this.state.gallery}/>
+        <ImageGallery gallery={this.state.gallery} onClick={this.handleModalClick}/>
+        {this.state.largeUrl && <Modal url={this.state.largeUrl}/> }
         {this.state.gallery.length !== 0 && <Button onClick={this.handleButoonClick}/>}
       </div>
 
