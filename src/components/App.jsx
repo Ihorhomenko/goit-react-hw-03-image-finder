@@ -3,6 +3,7 @@ import Searchbar from './searchbar/searchbar';
 import ImageGallery from './imageGallery/imageGallery';
 import Button from './button/button';
 import { BallTriangle } from  'react-loader-spinner'
+import '../index.css'
 
 class App extends Component {
   state = {
@@ -37,6 +38,7 @@ class App extends Component {
         {this.state.loader && <BallTriangle height = "180"
                                 width = "180"
                                 color = '#3f51b5'
+                                wrapperClass = {'loader'}
                               />}
         <ImageGallery gallery={this.state.gallery}/>
         {this.state.gallery.length !== 0 && <Button onClick={this.handleButoonClick}/>}
